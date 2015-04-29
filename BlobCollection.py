@@ -137,7 +137,7 @@ class BlobCollection():
 		if (len(self.cov_libs) > 1):
 			for contig_name, blob in self.contigs.items():
 				cov_sum = 0.0
-				for cov_lib in self.cov_libs:
+				for cov_lib in sorted(self.cov_libs):
 					cov_sum += blob.covs[cov_lib]	
 				self.contigs[contig_name].covs['SUM']=cov_sum		
 			self.cov_libs.append("SUM")
