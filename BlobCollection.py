@@ -138,7 +138,6 @@ class BlobCollection():
 			for contig_name, blob in self.contigs.items():
 				cov_sum = 0.0
 				for cov_lib in sorted(self.cov_libs):
-					print blob.covs
 					cov_sum += blob.covs[cov_lib]	
 				self.contigs[contig_name].covs['SUM'] = cov_sum		
 			self.cov_libs.append("SUM")
@@ -191,7 +190,7 @@ class BlobCollection():
 					blast_line_re = re.compile(r"^(\S+)\t(\S+)\t\s*(\S+)") # turns out that blastn output is not tab delimited but tab/(+space) delimited
 					match = blast_line_re.search(line)
 					if match:
-						qseqid, taxid, bitscore = match.group(1), int(match.group(2).split(";")[0]), int(match.group(3)) # if more than one taxid is found ... first one will be used
+						qseqid, taxid, bitscore = match.group(1), int(match.group(2).split(";")[0]), int(float(match.group(3))) # if more than one taxid is found ... first one will be used
 						if qseqid in self.contigs: 
 							taxonomy = {}
 							taxonomy = self.getTaxonomy(taxid, taxonomy, nodes_dict, names_dict) # infers taxonomy based on 
