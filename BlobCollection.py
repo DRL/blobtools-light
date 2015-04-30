@@ -199,7 +199,7 @@ class BlobCollection():
 							taxonomic_group = taxonomy[self.rank_level]
 							self.contigs[qseqid].tax[blast_lib][taxonomic_group] = self.contigs[qseqid].tax[blast_lib].get(taxonomic_group, 0) + bitscore							
 						else:
-							sys.exit("[ERROR] - {} in {} does not seem to be part of the assembly.".format(qseqid, blast_file))
+							print ("[WARN] - {} in {} does not seem to be part of the assembly.".format(qseqid, blast_file))
 					else:
 						sys.exit("[ERROR] - BLAST results in {} do not seem to be in the right format. Please run BLAST with the following option : -outfmt '6 qseqid staxids bitscore'".format(blast_file))
 
