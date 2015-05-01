@@ -95,10 +95,10 @@ class BlobCollection():
 		'''
 		Adds coverage to the covs dict: key = cov_lib name, value = coverage
 		'''
-		if mapping_lib in self.contigs[header].covs:
-			sys.exit("[ERROR] - Contig {} received more than one coverage from the {} assembly file".format( header, mapping_lib))
-		else:
-			self.contigs[header].covs[mapping_lib] = float(cov)
+		#if mapping_lib in self.contigs[header].covs:
+		#	sys.exit("[ERROR] - Contig {} received more than one coverage from the {} assembly file".format( header, mapping_lib))
+		#else:
+		self.contigs[header].covs[mapping_lib] = float(cov)
 
 	def parseCovFromHeader(self, header, assembly_type):
 		''' 
