@@ -126,9 +126,9 @@ class BlobCollection():
 			if cov_lib.startswith("CAS"):
 				self.parseCovFromCasFile(cov_lib, mapping_file)
 			elif cov_lib.startswith("BAM"):
-				pass
+				parseCovFromBAMFile(cov_lib, mapping_file)
 			elif cov_lib.startswith("SAM"):
-				pass
+				parseCovFromBAMFile(cov_lib, mapping_file)
 			elif cov_lib.startswith("COV"):
 				self.parseCovFromCovFile(cov_lib, mapping_file)
 			else:
@@ -159,6 +159,25 @@ class BlobCollection():
 				contig_cov = float(match.group(4))
 				contig_id = self.index[contig_index]
 				self.addBlobCov(contig_id, lib_name, contig_cov)
+
+	def parseCovFromBAMFile(self, lib_name, sam_file):
+		'''
+		Parse coverage from SAM file
+		'''
+		contig_base_cov = dict()
+		error, message = commands.getstatusoutput("samtools ")
+		if (error):
+			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
+		p = subprocess.Popen("samtools view -F 4 " + bam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
+		#read_counter = 1
+		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
+		for line in iter(p.stdout.readline, b''):
+			match = bam_line_re.search(line)
+			if match:
+				contig_name = match.group(1)
+				contig_base_cov = match.group(2)
+				print contig_name + "\t" + contig_base_cov
+				#self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
 		'''
