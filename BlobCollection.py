@@ -191,7 +191,7 @@ class BlobCollection():
 		sys.stdout.write('\r')
 		print "\t[PROGRESS] - 100.00%"
 		for contig_id, base_cov in contig_base_cov.items():
-			contig_cov = base_cov / self.contigs[contig].corrected_length
+			contig_cov = base_cov / self.contigs[contig_id].corrected_length
 			self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromSAMFile(self, lib_name, sam_file):
@@ -213,7 +213,7 @@ class BlobCollection():
 						sum_of_matchin_bases += int(matching.rstrip("M"))
 					contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
 		for contig_id, base_cov in contig_base_cov.items():
-			contig_cov = base_cov / self.contigs[contig].corrected_length
+			contig_cov = base_cov / self.contigs[contig_id].corrected_length
 			self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
