@@ -166,7 +166,8 @@ class BlobCollection():
 		'''
 		contig_base_cov = dict()
 		error, message = commands.getstatusoutput("samtools view " + sam_file)
-		if not error == 256:
+		print message
+		if (error):
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
 		p = subprocess.Popen("samtools view -F 4 " + sam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
 		#read_counter = 1
