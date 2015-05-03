@@ -188,7 +188,7 @@ class BlobCollection():
 				contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
 				if read_counter % 5000 == 0:		
 					sys.stdout.write('\r')
-					progress = int(line_counter)/int(number_of_reads)
+					progress = int(read_counter)/int(total_read_count)
 					print "Progress:\t" + format(float(progress),'.2%'),
 					sys.stdout.flush()
 		for contig, base_cov in contig_base_cov.items():
