@@ -171,13 +171,13 @@ class BlobCollection():
 		p = subprocess.Popen("samtools view -F 4 " + sam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
 		#read_counter = 1
 		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
-		cigar_match_re = re.compile(r"((\d+M)+)")
+		cigar_match_re = re.compile(r"(\d+M)")
 		for line in iter(p.stdout.readline, b''):
 			match = bam_line_re.search(line)
 			if match:
 				contig_name = match.group(1)
 				contig_cigar_string = match.group(2)
-				matches = cigar_match_re.search(contig_cigar_string)
+				matches = cigar_match_re.findall(contig_cigar_string)
 				print contig_name + "\t" + contig_cigar_string + "\t" + str(matches.group())
 				#self.addBlobCov(contig_id, lib_name, contig_cov)
 
