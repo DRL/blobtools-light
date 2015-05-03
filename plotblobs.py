@@ -233,7 +233,7 @@ def plot(data, cov_data, outfile):
 def getInput():
 
 	parser = argparse.ArgumentParser(
-		prog='tagc_plot.py',
+		prog='plotblobs.py',
 		usage = '%(prog)s infile [-p] [-f] [-t] [-e] [-n] [-o] [-l] [-c] [-s] [-h]',
 		add_help=True)
 	parser.add_argument('i', metavar = 'infile', help='Input file (blobplot.txt)')
@@ -246,14 +246,14 @@ def getInput():
 	parser.add_argument('-o', metavar ='out_prefix', default='' , help='Set output file prefix.') 
 	parser.add_argument('-m', action='store_true' , help='Multi-plot. Print PNG after each tax-addition.') 
 	parser.add_argument('-sort', action='store_false' , help='Sort by number of contigs per phylum (Default: Sort by span by tax)') 
-	parser.add_argument('-span', action='store_true' , help='Make histograms based on assembled span by tax (Expensive!)') 
+	parser.add_argument('-hist', action='store_false' , help='Make histograms based on contig counts. (Default: Span-Weighted histograms)') 
 	parser.add_argument('-v', action='version', version='%(prog)s version 0.1')
 	args = parser.parse_args()
 	# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 	out_prefix, sort_by_span, multi_plot = args.o, args.sort, args.m
 
-	len_cutoffs, ignore_contig_len, hide_not_annotated, hist_span = args.c, args.s, args.n, args.span
+	len_cutoffs, ignore_contig_len, hide_not_annotated, hist_span = args.c, args.s, args.n, args.hist
 
 	infile = args.i
 
