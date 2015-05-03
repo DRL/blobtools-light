@@ -126,9 +126,9 @@ class BlobCollection():
 			if cov_lib.startswith("CAS"):
 				self.parseCovFromCasFile(cov_lib, mapping_file)
 			elif cov_lib.startswith("BAM"):
-				parseCovFromBAMFile(cov_lib, mapping_file)
+				self.parseCovFromBAMFile(cov_lib, mapping_file)
 			elif cov_lib.startswith("SAM"):
-				parseCovFromBAMFile(cov_lib, mapping_file)
+				self.parseCovFromBAMFile(cov_lib, mapping_file)
 			elif cov_lib.startswith("COV"):
 				self.parseCovFromCovFile(cov_lib, mapping_file)
 			else:
