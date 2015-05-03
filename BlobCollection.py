@@ -168,7 +168,7 @@ class BlobCollection():
 		error, message = commands.getstatusoutput("samtools view " + sam_file)
 		if not error == 256:
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
-		p = subprocess.Popen("samtools view -F 4 " + bam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
+		p = subprocess.Popen("samtools view -F 4 " + sam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
 		#read_counter = 1
 		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
 		for line in iter(p.stdout.readline, b''):
