@@ -178,7 +178,7 @@ class BlobCollection():
 				contig_name = match.group(1)
 				contig_cigar_string = match.group(2)
 				matches = cigar_match_re.search(contig_cigar_string)
-				print contig_name + "\t" + contig_cigar_string + "\t" + str(matches.group)
+				print contig_name + "\t" + contig_cigar_string + "\t" + str(matches.group(1))
 				#self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
