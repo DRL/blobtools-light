@@ -191,7 +191,6 @@ class BlobCollection():
 		print "[PROGRESS] - " + format(100,'.2%'),
 		for contig, base_cov in contig_base_cov.items():
 			cov = base_cov / self.contigs[contig].corrected_length
-			print contig + "\t" + str(cov)
 		#self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
