@@ -170,10 +170,8 @@ class BlobCollection():
 		error, total_read_count = commands.getstatusoutput("samtools view -c " + bam_file)
 		if not (total_read_count):
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
-		print total_read_count
 		p = subprocess.Popen("samtools view -F 4 " + bam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
 		read_counter = 0
-
 		for line in iter(p.stdout.readline, b''):
 			match = bam_line_re.search(line)
 			if match:
@@ -188,8 +186,9 @@ class BlobCollection():
 				if read_counter % 5000 == 0:		
 					sys.stdout.write('\r')
 					progress = int(read_counter)/int(total_read_count)
-					print "Progress:\t" + format(float(progress),'.2%'),
+					print "[PROGRESS] - " + format(float(progress),'.2%'),
 					sys.stdout.flush()
+		print "[PROGRESS] - " + format(100,'.2%'),
 		for contig, base_cov in contig_base_cov.items():
 			cov = base_cov / self.contigs[contig].corrected_length
 			print contig + "\t" + str(cov)
