@@ -29,3 +29,4 @@ Plotting TAGC-file:
 ```
 ~/blobtools-light/plotblobs.py test.blobplot.txt
 ```
+![Example](example.blobplot.png?raw=true "Example Blobplot")
