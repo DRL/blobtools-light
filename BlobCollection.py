@@ -190,17 +190,39 @@ class BlobCollection():
 					sys.stdout.flush()
 		sys.stdout.write('\r')
 		print "\t[PROGRESS] - 100.00%"
-		for contig, base_cov in contig_base_cov.items():
-			cov = base_cov / self.contigs[contig].corrected_length
-		#self.addBlobCov(contig_id, lib_name, contig_cov)
+		for contig_id, base_cov in contig_base_cov.items():
+			contig_cov = base_cov / self.contigs[contig].corrected_length
+			self.addBlobCov(contig_id, lib_name, contig_cov)
+
+	def parseCovFromSAMFile(self, lib_name, sam_file):
+		'''
+		Parse coverage from SAM file
+		'''
+		contig_base_cov = dict()
+		sam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
+		cigar_match_re = re.compile(r"(\d+M)") # only counts M's
+		with open(sam_file) as fh:
+			for line in fh:
+				match = sam_line_re.search(line)
+				if match:
+					contig_name = match.group(1)
+					contig_cigar_string = match.group(2)
+					matchings = cigar_match_re.findall(contig_cigar_string)
+					sum_of_matchin_bases = 0	
+					for matching in matchings:
+						sum_of_matchin_bases += int(matching.rstrip("M"))
+					contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
+		for contig_id, base_cov in contig_base_cov.items():
+			contig_cov = base_cov / self.contigs[contig].corrected_length
+			self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
 		'''
 		Parse coverage from COV file
 		'''
+		cov_line_re = re.compile(r"^(\S+)\t(\d+\.\d+)")
 		with open(cov_file) as fh:
 			for line in fh:
-				cov_line_re = re.compile(r"^(\S+)\t(\d+\.\d+)")
 				match = cov_line_re.search(line)
 				if match:
 					contig_id, contig_cov = match.group(1), float(match.group(2))
