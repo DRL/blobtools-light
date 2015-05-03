@@ -160,7 +160,7 @@ class BlobCollection():
 				contig_id = self.index[contig_index]
 				self.addBlobCov(contig_id, lib_name, contig_cov)
 
-	def parseCovFromSAMFile(self, lib_name, bam_file):
+	def parseCovFromBAMFile(self, lib_name, bam_file):
 		'''
 		Parse coverage from BAM file
 		'''
