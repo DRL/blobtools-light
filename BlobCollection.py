@@ -177,8 +177,12 @@ class BlobCollection():
 			if match:
 				contig_name = match.group(1)
 				contig_cigar_string = match.group(2)
-				matches = cigar_match_re.findall(contig_cigar_string)
+				matchings = cigar_match_re.findall(contig_cigar_string)
 				print contig_name + "\t" + contig_cigar_string + "\t" + str(matches)
+				sum_of_matchin_bases = 0	
+				for matching in matchings:
+					sum_of_matchin_bases += int(matching.rstrip("M"))
+				print sum_of_matchin_bases
 				#self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
