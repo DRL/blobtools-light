@@ -199,19 +199,23 @@ class BlobCollection():
 		Parse coverage from SAM file
 		'''
 		contig_base_cov = dict()
-		sam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
+		sam_line_re = re.compile(r"\S+\s+(\d)+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
 		cigar_match_re = re.compile(r"(\d+M)") # only counts M's
 		with open(sam_file) as fh:
 			for line in fh:
 				match = sam_line_re.search(line)
 				if match:
-					contig_name = match.group(1)
-					contig_cigar_string = match.group(2)
-					matchings = cigar_match_re.findall(contig_cigar_string)
-					sum_of_matchin_bases = 0	
-					for matching in matchings:
-						sum_of_matchin_bases += int(matching.rstrip("M"))
-					contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
+					sam_flag = match.group(1)
+					contig_name = match.group(2)
+					if contig_name == '*' or sam_flag == 4:
+						pass
+					else:
+						contig_cigar_string = match.group(3)
+						matchings = cigar_match_re.findall(contig_cigar_string)
+						sum_of_matchin_bases = 0	
+						for matching in matchings:
+							sum_of_matchin_bases += int(matching.rstrip("M"))
+						contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
 		for contig_id, base_cov in contig_base_cov.items():
 			contig_cov = base_cov / self.contigs[contig_id].corrected_length
 			self.addBlobCov(contig_id, lib_name, contig_cov)
