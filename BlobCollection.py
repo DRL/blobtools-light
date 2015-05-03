@@ -178,7 +178,7 @@ class BlobCollection():
 				contig_name = match.group(1)
 				contig_cigar_string = match.group(2)
 				matchings = cigar_match_re.findall(contig_cigar_string)
-				print contig_name + "\t" + contig_cigar_string + "\t" + str(matches)
+				print contig_name + "\t" + contig_cigar_string + "\t" + str(matchings)
 				sum_of_matchin_bases = 0	
 				for matching in matchings:
 					sum_of_matchin_bases += int(matching.rstrip("M"))
