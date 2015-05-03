@@ -182,8 +182,11 @@ class BlobCollection():
 				sum_of_matchin_bases = 0	
 				for matching in matchings:
 					sum_of_matchin_bases += int(matching.rstrip("M"))
-				print sum_of_matchin_bases
-				#self.addBlobCov(contig_id, lib_name, contig_cov)
+				contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
+		for contig, base_cov in contig_base_cov.items():
+			cov = base_cov / self.contigs[contig].length
+			print contig + "\t" + str(cov)
+		#self.addBlobCov(contig_id, lib_name, contig_cov)
 
 	def parseCovFromCovFile(self, lib_name, cov_file):
 		'''
