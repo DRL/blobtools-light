@@ -160,21 +160,24 @@ class BlobCollection():
 				contig_id = self.index[contig_index]
 				self.addBlobCov(contig_id, lib_name, contig_cov)
 
-	def parseCovFromBAMFile(self, lib_name, sam_file):
+	def parseCovFromSAMFile(self, lib_name, bam_file):
 		'''
-		Parse coverage from SAM file
+		Parse coverage from BAM file
 		'''
 		contig_base_cov = dict()
-		error, message = commands.getstatusoutput("samtools view ")
+		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
+		cigar_match_re = re.compile(r"(\d+M)") # only counts M's
+		error, total_read_count = commands.getstatusoutput("samtools view -c " + bam_file)
 		if not (message):
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
-		p = subprocess.Popen("samtools view -F 4 " + sam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
-		#read_counter = 1
-		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
-		cigar_match_re = re.compile(r"(\d+M)")
+		print total_read_count
+		p = subprocess.Popen("samtools view -F 4 " + bam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
+		read_counter = 0
+
 		for line in iter(p.stdout.readline, b''):
 			match = bam_line_re.search(line)
 			if match:
+				read_counter += 1
 				contig_name = match.group(1)
 				contig_cigar_string = match.group(2)
 				matchings = cigar_match_re.findall(contig_cigar_string)
@@ -183,6 +186,11 @@ class BlobCollection():
 				for matching in matchings:
 					sum_of_matchin_bases += int(matching.rstrip("M"))
 				contig_base_cov[contig_name] = contig_base_cov.get(contig_name, 0) + sum_of_matchin_bases
+				if read_counter % 5000 == 0:		
+					sys.stdout.write('\r')
+					progress = int(line_counter)/int(number_of_reads)
+					print "Progress:\t" + format(float(progress),'.2%'),
+					sys.stdout.flush()
 		for contig, base_cov in contig_base_cov.items():
 			cov = base_cov / self.contigs[contig].corrected_length
 			print contig + "\t" + str(cov)
