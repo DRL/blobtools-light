@@ -21,8 +21,11 @@ Data requirements:
   - The important part is "-outfmt '6 qseqid staxids bitscore'"
 
 Making blobplot file:
+```
 ~/blobtools-light/makeblobs.py -a assembly/assembly.fa -bam mapping/assembly.mapping.bam -taxdb /exports/blast_db/ -blast assembly.vs.nt.25cul1.1e25.megablast.out -o test
+```
 
 Plotting TAGC-file:
+```
 ~/blobtools-light/plotblobs.py test.blobplot.txt
-
+```
