@@ -167,7 +167,7 @@ class BlobCollection():
 		contig_base_cov = dict()
 		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
 		cigar_match_re = re.compile(r"(\d+M)") # only counts M's
-		error, total_read_count = commands.getstatusoutput("samtools view -c " + bam_file)
+		error, total_read_count = commands.getstatusoutput("samtools view -c -F 4 " + bam_file)
 		if not (total_read_count):
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
 		p = subprocess.Popen("samtools view -F 4 " + bam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
