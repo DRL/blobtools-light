@@ -165,7 +165,7 @@ class BlobCollection():
 		Parse coverage from SAM file
 		'''
 		contig_base_cov = dict()
-		error, message = commands.getstatusoutput("samtools view " + sam_file)
+		error, message = commands.getstatusoutput("samtools view ")
 		print message
 		if (error):
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
