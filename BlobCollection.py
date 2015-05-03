@@ -171,7 +171,7 @@ class BlobCollection():
 		p = subprocess.Popen("samtools view -F 4 " + sam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
 		#read_counter = 1
 		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
-		cigar_match_re = re.compile(r"(\d+)M")
+		cigar_match_re = re.compile(r"((\d+M)+)")
 		for line in iter(p.stdout.readline, b''):
 			match = bam_line_re.search(line)
 			if match:
