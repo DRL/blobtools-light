@@ -134,16 +134,17 @@ class BlobCollection():
 			else:
 				sys.exit("[ERROR] - Unknown cov_lib type {} in {}".format(cov_lib, mapping_file))	
 	
-		if (len(self.cov_libs) > 1):
-			for contig_name in self.contigs:
-				cov_sum = 0.0
-				print contig_name
-				print self.contigs[contig_name].covs
-
-				for cov_lib in sorted(self.cov_libs):
+		for contig_name in self.contigs:
+			cov_sum = 0.0
+			for cov_lib in sorted(self.cov_libs):
+				if cov_lib in self.contigs[contig_name].covs:	
 					cov_sum += self.contigs[contig_name].covs[cov_lib]	
-				self.contigs[contig_name].covs['SUM'] = cov_sum		
-			self.cov_libs.append("SUM")
+				else:
+					self.contigs[contig_name].covs[cov_lib] = 0.0		
+			self.contigs[contig_name].covs['SUM'] = cov_sum
+			print contig_name
+			print self.contigs[contig_name].covs
+		self.cov_libs.append("SUM")
 
 	def parseCovFromCasFile(self, lib_name, cas_file):
 		'''
