@@ -168,7 +168,7 @@ class BlobCollection():
 		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
 		cigar_match_re = re.compile(r"(\d+M)") # only counts M's
 		error, total_read_count = commands.getstatusoutput("samtools view -c " + bam_file)
-		if not (message):
+		if not (total_read_count):
 			sys.exit("[ERROR] - Please add samtools to you PATH variable.") 
 		print total_read_count
 		p = subprocess.Popen("samtools view -F 4 " + bam_file , stdout=subprocess.PIPE, bufsize=1, shell=True)
