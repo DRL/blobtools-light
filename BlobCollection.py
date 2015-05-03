@@ -135,10 +135,10 @@ class BlobCollection():
 				sys.exit("[ERROR] - Unknown cov_lib type {} in {}".format(cov_lib, mapping_file))	
 	
 		if (len(self.cov_libs) > 1):
-			for contig_name, blob in self.contigs.items():
+			for contig_name in self.contigs:
 				cov_sum = 0.0
 				for cov_lib in sorted(self.cov_libs):
-					cov_sum += blob.covs[cov_lib]	
+					cov_sum += self.contigs[contig_name].covs[cov_lib]	
 				self.contigs[contig_name].covs['SUM'] = cov_sum		
 			self.cov_libs.append("SUM")
 
