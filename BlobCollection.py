@@ -189,7 +189,7 @@ class BlobCollection():
 					print "\t[PROGRESS] - " + format(float(progress),'.2%'),
 					sys.stdout.flush()
 		sys.stdout.write('\r')
-		print "\t[PROGRESS] - " + format(float(100),'.2%')
+		print "Progress:\t100.00%"
 		for contig, base_cov in contig_base_cov.items():
 			cov = base_cov / self.contigs[contig].corrected_length
 		#self.addBlobCov(contig_id, lib_name, contig_cov)
