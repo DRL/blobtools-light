@@ -186,10 +186,10 @@ class BlobCollection():
 				if read_counter % 5000 == 0:		
 					sys.stdout.write('\r')
 					progress = int(read_counter)/int(total_read_count)
-					print "[PROGRESS] - " + format(float(progress),'.2%'),
+					print "\t[PROGRESS] - " + format(float(progress),'.2%'),
 					sys.stdout.flush()
 		sys.stdout.write('\r')
-		print "[PROGRESS] - " + format(100.00,'%'),
+		print "\t[PROGRESS] - " + format(float(100),'2%'),
 		for contig, base_cov in contig_base_cov.items():
 			cov = base_cov / self.contigs[contig].corrected_length
 		#self.addBlobCov(contig_id, lib_name, contig_cov)
