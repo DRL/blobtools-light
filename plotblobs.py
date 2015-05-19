@@ -83,13 +83,14 @@ def plot_ref_legend(axScatter):
 	ref_3 = (Line2D([0], [0], linewidth = 0.5, linestyle="none", marker="o", alpha=1, markersize=math.sqrt(10000/15), markerfacecolor=grey))
 	axScatter.legend([ref_1,ref_2,ref_3], ["1,000nt", "5,000nt", "10,000nt"], numpoints=1, loc = 4, fontsize=fontsize)
 
-def plot(data, cov_data, outfile):
+def plot(data, cov_data, outfile, title):
 	""" Plotting function which gets masked data and plots to outfile"""
 
 	rect_scatter, rect_histx, rect_histy, rect_legend = set_canvas()
 	# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 	# Setting up plots and axes
 	plt.figure(1, figsize=(35,35), dpi=400)
+
 	axScatter = plt.axes(rect_scatter, axisbg=background_grey, yscale = 'log')
 	axScatter = set_format_scatterplot(axScatter)
 	axHistx = plt.axes(rect_histx, axisbg=background_grey)
@@ -98,6 +99,8 @@ def plot(data, cov_data, outfile):
 	axHisty = set_format_hist_y(axHisty, axScatter)
 	axScatter.yaxis.get_major_ticks()[0].label1.set_visible(False)
 	axScatter.yaxis.get_major_ticks()[1].label1.set_visible(False)
+	if (title):
+		plt.suptitle(title, fontsize=35, verticalalignment='top')
 	#plt.suptitle(out_file, fontsize=25, verticalalignment='bottom')
 	
 	axLegend = plt.axes(rect_legend, axisbg=white)
@@ -247,11 +250,12 @@ def getInput():
 	parser.add_argument('-m', action='store_true' , help='Multi-plot. Print PNG after each tax-addition.') 
 	parser.add_argument('-sort', action='store_false' , help='Sort by number of contigs per phylum (Default: Sort by span by tax)') 
 	parser.add_argument('-hist', action='store_false' , help='Make histograms based on contig counts. (Default: Span-Weighted histograms)') 
+	parser.add_argument('-title', metavar='title' , help='Add title to plot') 
 	parser.add_argument('-v', action='version', version='%(prog)s version 0.1')
 	args = parser.parse_args()
 	# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-	out_prefix, sort_by_span, multi_plot = args.o, args.sort, args.m
+	out_prefix, sort_by_span, multi_plot, title = args.o, args.sort, args.m, args.title
 
 	len_cutoffs, ignore_contig_len, hide_not_annotated, hist_span = args.c, args.s, args.n, args.hist
 
@@ -265,7 +269,7 @@ def getInput():
 	if (max_taxa_plot < 1):
 		parser.exit("[ERROR] : 'max_taxa_plot' must be a positive integer!")
 	
-	return infile, out_prefix, max_taxa_plot, len_cutoffs, ignore_contig_len, sort_by_span, multi_plot, hist_span  
+	return infile, out_prefix, max_taxa_plot, len_cutoffs, ignore_contig_len, sort_by_span, multi_plot, hist_span, title 
 
 def parseInfile(data):
 	
@@ -357,7 +361,7 @@ if __name__ == "__main__":
 	fig_format = 'png'
 	nullfmt = NullFormatter()         # no labels on axes
 
-	infile, out_prefix, max_taxa_plot, len_cutoffs, ignore_contig_len, sort_by_span, multi_plot, hist_span = getInput()
+	infile, out_prefix, max_taxa_plot, len_cutoffs, ignore_contig_len, sort_by_span, multi_plot, hist_span, title = getInput()
 
 	data, tax_dict, cov_dict = parseInfile(infile) # data is a numpy array, tax_dict is a dict, cov_dict is a dict of numpy arrays
 
@@ -380,5 +384,5 @@ if __name__ == "__main__":
 				outfile = out_prefix + "." + lib + "." + key 
 			else: 
 				outfile =  infile + "." + lib + "." + key 
-			plot(data[mask], cov[mask], outfile)
+			plot(data[mask], cov[mask], outfile, title)
 		#
