@@ -168,7 +168,7 @@ class BlobCollection():
 		'''
 		Parse coverage from BAM file
 		'''
-		contig_base_cov = dict()
+		contig_base_cov = {}
 		bam_line_re = re.compile(r"\S+\s+\d+\s+(\S+)\s+\d+\s+\d+\s+(\S+)")
 		cigar_match_re = re.compile(r"(\d+M)") # only counts M's
 		error, total_read_count = commands.getstatusoutput("samtools view -c -F 4 " + bam_file)
