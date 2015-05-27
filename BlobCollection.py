@@ -6,7 +6,7 @@ File   		: BlobCollection.py
 Version 	: 0.1
 Author 		: Dominik R. Laetsch, dominik.laetsch at gmail dot com 
 Bugs 		: ?
-To do 		: 
+To do 		: Add to CAS parser that it checks that the assembly is the correct one
 """
 
 from __future__ import division
