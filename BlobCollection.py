@@ -161,8 +161,12 @@ class BlobCollection():
 			if match:
 				contig_index = int(match.group(1)) - 1 # -1 because index of contig list starts with zero 
 				contig_cov = float(match.group(4))
-				contig_id = self.index[contig_index]
-				self.addBlobCov(contig_id, lib_name, contig_cov)
+				try:
+					contig_id = self.index[contig_index]
+					self.addBlobCov(contig_id, lib_name, contig_cov)
+				except IndexError, e:
+					# throw IndexError if there is a different amount of contigs in CAS than there is in the assembly
+					sys.exit("[ERROR] : There are more contigs in the CAS file than in the assembly. It seems that the mapping has not been performed against this assembly.")	
 
 	def parseCovFromBAMFile(self, lib_name, bam_file):
 		'''
@@ -260,7 +264,11 @@ class BlobCollection():
 					blast_line_re = re.compile(r"^(\S+)\t(\S+)\t\s*(\S+)") # turns out that blastn output is not tab delimited but tab/(+space) delimited
 					match = blast_line_re.search(line)
 					if match:
-						qseqid, taxid, bitscore = match.group(1), int(match.group(2).split(";")[0]), int(float(match.group(3))) # if more than one taxid is found ... first one will be used
+						try:
+							qseqid, taxid, bitscore = match.group(1), int(match.group(2).split(";")[0]), int(float(match.group(3))) # if more than one taxid is found ... first one will be used
+						except ValueError, e:
+							sys.exit("[ERROR] : BLAST output does not seem to be in the right format ('6 qseqid staxids bitscore ... ')")	
+						
 						if qseqid in self.contigs: 
 							taxonomy = {}
 							taxonomy = self.getTaxonomy(taxid, taxonomy, nodes_dict, names_dict) # infers taxonomy based on 
