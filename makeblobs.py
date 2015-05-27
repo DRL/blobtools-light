@@ -195,9 +195,13 @@ def parseInput(parameters):
 	'''
 	data.getBlobsFromAssembly(parameters.assembly_file, parameters.assembly_type, parameters.exclude_assembly_cov)
 	'''
-	4. Parse coverage library files into Blob objects in BlobCollection object
+	4a. Parse coverage library files into Blob objects in BlobCollection object
 	'''
 	data.getCovForBlobs(parameters.mapping_files)
+	'''
+	4b. Print COVs to files if mappings are BAM/SAM/CAS; to avoid having to parse them again 
+	'''
+	data.printCOVToFiles(parameters.mapping_files)
 	'''
 	5. Parse BLAST files into Blob objects in BlobCollection object and group into taxonomic bins by translating taxids to taxonomic group
 	'''
@@ -232,3 +236,4 @@ if __name__ == "__main__":
 
 	# Write Output to the two files *blobplot.txt and *stats.txt
 	data.writeOutput(__version__)
+

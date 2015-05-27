@@ -100,11 +100,15 @@ def parseInput(parameters):
 	'''
 	data.getBlobsFromAssembly(parameters.assembly_file, parameters.assembly_type, parameters.exclude_assembly_cov)
 	'''
-	3. Parse coverage library files into Blob objects in BlobCollection object
+	3a. Parse coverage library files into Blob objects in BlobCollection object
 	'''
 	data.getCovForBlobs(parameters.mapping_files)
 	'''
-	7. Return BlobCollection object
+	3b. Print COVs to files if mappings are BAM/SAM/CAS
+	'''
+	data.printCOVToFiles(parameters.mapping_files)
+	'''
+	4. Return BlobCollection object
 	'''
 	return data
 
@@ -122,5 +126,3 @@ if __name__ == "__main__":
 	
 	# Parse files according to InputObject into BlobCollection object 
 	data = parseInput(parameters)
-
-	data.printCOVToFiles()

@@ -358,16 +358,16 @@ class BlobCollection():
 			self.contigs[contig_name].tax['tax'][tax]=dict_for_tax_merging[tax]
 		self.blast_libs.append('tax')
 	
-	def printCOVToFiles(self):
-		for cov_lib in self.cov_libs:
-			if cov_lib == 'SUM':
-				pass
-			else:
-				cov_fh = open(cov_lib + ".cov", 'w') 
+	def printCOVToFiles(self, mapping_files):
+		for cov_lib, cov_file in mapping_files.items():
+			if cov_lib.startswith('BAM') or cov_lib.startswith('SAM') or cov_lib.startswith('CAS'):
+				cov_fh = open(cov_file + ".cov", 'w') 
 				for contig_name in self.index:
 					blob = self.contigs[contig_name]
 					cov_fh.write(blob.name + "\t" + str(blob.covs[cov_lib]) + "\n")
-				cov_fh.close()  
+				cov_fh.close() 
+			else:
+				pass
 
 	def getStats(self):
 		'''
