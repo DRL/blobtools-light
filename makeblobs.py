@@ -6,7 +6,7 @@ File   		: makeblobs.py
 Version 	: 0.1
 Author 		: Dominik R. Laetsch, dominik.laetsch at gmail dot com 
 Bugs 		: ?
-To do 		: ?
+To do 		: Add %span in stats file, remove double entry in statsfile if only one blast file  
 """
 
 from __future__ import division

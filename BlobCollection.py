@@ -201,7 +201,6 @@ class BlobCollection():
 				contig_cov = base_cov / self.contigs[contig_id].corrected_length
 				self.addBlobCov(contig_id, lib_name, contig_cov)
 
-
 	def parseCovFromSAMFile(self, lib_name, sam_file):
 		'''
 		Parse coverage from SAM file
@@ -358,6 +357,17 @@ class BlobCollection():
 			self.contigs[contig_name].tax['tax'] = {}
 			self.contigs[contig_name].tax['tax'][tax]=dict_for_tax_merging[tax]
 		self.blast_libs.append('tax')
+	
+	def printCOVToFiles(self):
+		for cov_lib in self.cov_libs:
+			if cov_lib == 'SUM':
+				pass
+			else:
+				cov_fh = open(cov_lib + ".cov", 'w') 
+				for contig_name in self.index:
+					blob = self.contigs[contig_name]
+					cov_fh.write(blob.name + "\t" + str(blob.covs[cov_lib]) + "\n")
+				cov_fh.close()  
 
 	def getStats(self):
 		'''
