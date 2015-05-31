@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-File   		: bam2cov.py
+File   		: mapping2cov.py
 Version 	: 0.1
 Author 		: Dominik R. Laetsch, dominik.laetsch at gmail dot com 
-Descrition	: Takes a BAM/SAM file and writes a COV file
+Descrition	: Takes a BAM/SAM/CAS file and writes a COV file
 Bugs 		: ?
 To do 		: ?
 """
