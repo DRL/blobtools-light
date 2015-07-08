@@ -7,7 +7,7 @@ Software requirements:
 - Python 2.7+
 - Numpy 1.9.1 ('pip install numpy')
 - matplotlib 1.4 ('pip install matplotlib')
-- NCBI Taxdump ('wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz')
+- NCBI Taxdump (' wget ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz ')
 
 Data requirements:
 - Assembly* (FASTA)
