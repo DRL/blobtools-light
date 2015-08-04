@@ -265,7 +265,7 @@ class BlobCollection():
 					match = blast_line_re.search(line)
 					if match:
 						try:
-							qseqid, taxid, bitscore = match.group(1), int(match.group(2).split(";")[0]), int(match.group(3)) # if more than one taxid is found ... first one will be used
+							qseqid, taxid, bitscore = match.group(1), int(match.group(2).split(";")[0]), float(match.group(3)) # if more than one taxid is found ... first one will be used
 						except ValueError, e:
 							sys.exit("[ERROR] : BLAST output does not seem to be in the right format ('6 qseqid staxids bitscore ... ')\n" + line)
 						
