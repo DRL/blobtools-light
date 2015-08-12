@@ -168,7 +168,7 @@ def getInput():
 	#parser.add_argument('-tax', action='tax' , default='phylum', help='Select target taxonomic rank (species, genus, order, phylum, superkingdom). Default = phylum')
 	parser.add_argument('-blast', metavar = 'BLAST_FILE', default=[], nargs='+', help='BLAST file') 
 	parser.add_argument('-rank', metavar = 'TAX_RANK', default='phylum', help='Select target taxonomic rank (species, genus, order, phylum, superkingdom). Default = phylum') 
-	parser.add_argument('-addrank', metavar = 'TAX_RANK', default=[], nargs='+', help='Print additional taxonomic rank for taxonomified taxid (species, genus, order, phylum, superkingdom). Default = None') 
+	#parser.add_argument('-addrank', metavar = 'TAX_RANK', default=[], nargs='+', help='Print additional taxonomic rank for taxonomified taxid (species, genus, order, phylum, superkingdom). Default = None') 
 	parser.add_argument('-taxrule', metavar = 'A or B', default='A', help='Tax-rule on how to deal with multiple BLAST libs. A : "higher bitscore wins", B : "Decreasing trust in BLAST libs"') 
 	parser.add_argument('-taxdb', metavar = 'TAX_DUMP', default='', help='Path to NCBI taxdb (nodes.dmp, names.dmp)') 
 	parser.add_argument('-o', metavar = 'OUTPUT_PREFIX', default='', help='Output prefix') 
