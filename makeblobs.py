@@ -6,7 +6,7 @@ File   		: makeblobs.py
 Version 	: 0.1
 Author 		: Dominik R. Laetsch, dominik.laetsch at gmail dot com 
 Bugs 		: ?
-To do 		: Add %span in stats file, remove double entry in statsfile if only one blast file  
+To do 		: Add span in stats file, remove double entry in statsfile if only one blast file  
 """
 
 from __future__ import division
@@ -25,7 +25,7 @@ class InputObject():
 		self.outfiles = self.getDictOfOutfiles(args.o) 
 		self.taxrule = args.taxrule 
 		self.rank = self.checkRank(args.rank)
-		self.addrank = [self.checkRank(x) for x in args.addrank] # this is a list
+		#self.addrank = [self.checkRank(x) for x in args.addrank] # this is a list
 
 	def checkRank(self, rank):
 		if rank in RANKS:
