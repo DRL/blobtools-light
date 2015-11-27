@@ -1,4 +1,7 @@
 # blobtools-light
+
+No longer maintained ... please check out [blobtools](https://github.com/DRL/blobtools)
+
 Light version of the upcoming blobtools package
 
 blobtools-light allows the visualisation of (draft) genome assemblies using TAGC (Taxon-annotated Gc-Coverage) plots (Kumar et al. 2012).
