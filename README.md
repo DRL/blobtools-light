@@ -1,6 +1,6 @@
 # blobtools-light
 
-No longer maintained ... please check out [blobtools](https://github.com/DRL/blobtools)
+## No longer maintained ... please check out [blobtools](https://github.com/DRL/blobtools)
 
 Light version of the upcoming blobtools package
 
